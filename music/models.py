@@ -9,4 +9,12 @@ class Album(models.Model):
     description = models.TextField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
+class Track(models.Model):
+    id = models.AutoField(primary_key=True)
+    album = models.ForeignKey(Album,blank=False,null=False, on_delete=models.CASCADE,related_name='tracks')
+    track_num = models.SmallIntegerField(blank=True, null=True)
+    title = models.CharField(max_length=50)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
