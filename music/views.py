@@ -60,12 +60,10 @@ def track_read_create(request, album_id):
 
 @api_view(['GET','PATCH','DELETE'])
 def track_detail_update_delete(request, album_id,track_id):
-    tracks = Track.objects.filter(album=album_id)
-    track = tracks.filter(id=track_id)
-    # 기존 track이 Queryset 형태여서 track.album으로 album의 정보를 가져오는데 오류가 발생 -> track의 첫번째 원소를 선택히여 해결
-    track = track.first()
+    track = get_object_or_404(Track,id=track_id)
     if request.method == 'GET':
-        serializer = TrackSerializer(track,many=True)
+        # 트랙 하나만 넘기기에 many속성 제거
+        serializer = TrackSerializer(track)
         return Response(data=serializer.data)
     
     if request.method == 'PATCH':
