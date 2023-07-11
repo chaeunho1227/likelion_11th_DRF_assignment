@@ -1,6 +1,11 @@
 from django.db import models
 
 # Create your models here.
+
+class Tag(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.TextField(max_length=30)
+
 class Album(models.Model):
     id = models.AutoField(primary_key=True)
     artist = models.CharField(max_length=50)
@@ -9,6 +14,7 @@ class Album(models.Model):
     description = models.TextField(max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    tag = models.ManyToManyField(Tag, blank=True)
 
 class Track(models.Model):
     id = models.AutoField(primary_key=True)
@@ -17,4 +23,3 @@ class Track(models.Model):
     title = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
