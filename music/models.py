@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+def image_upload_path(instance,filename):
+    return f'{instance.pk}/{filename}'
 
 class Tag(models.Model):
     id = models.AutoField(primary_key=True)
@@ -8,6 +10,7 @@ class Tag(models.Model):
 
 class Album(models.Model):
     id = models.AutoField(primary_key=True)
+    image = models.ImageField(upload_to=image_upload_path,blank=True,null=True)
     artist = models.CharField(max_length=50)
     title = models.CharField(max_length=50)
     release_year = models.PositiveIntegerField(null=True,blank=True)
