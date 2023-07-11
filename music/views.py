@@ -117,3 +117,14 @@ def find_tag(request, tag_name):
         album = Album.objects.filter(tag__in = [f_tag])
         serializer = AlbumSerializer(album, many=True)
         return Response(data=serializer.data)
+    
+    
+
+@api_view(['POST'])
+def find_tag_for_POST(request):
+    if request.method == 'POST':
+        tag_name = request.data['tag_name']
+        f_tag = get_object_or_404(Tag, name=tag_name)
+        album = Album.objects.filter(tag__in = [f_tag])
+        serializer = AlbumSerializer(album, many=True)
+        return Response(data=serializer.data)
